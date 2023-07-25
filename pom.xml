@@ -11,7 +11,7 @@
 
     <groupId>io.github.hfoxy</groupId>
     <artifactId>iracing-data-api</artifactId>
-    <version>0.1.2-SNAPSHOT</version>
+    <version>0.1.2</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -36,7 +36,8 @@
         <connection>scm:git:git://github.com/hfoxy/iracing-data-api.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/hfoxy/iracing-data-api.git</developerConnection>
         <url>https://github.com/hfoxy/iracing-data-api/tree/main</url>
-    </scm>
+      <tag>v0.1.2</tag>
+  </scm>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
