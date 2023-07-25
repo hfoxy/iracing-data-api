@@ -11,7 +11,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>me.hfox</groupId>
+    <groupId>com.github.hfoxy</groupId>
     <artifactId>iracing-data-api</artifactId>
     <version>0.1.0</version>
 
