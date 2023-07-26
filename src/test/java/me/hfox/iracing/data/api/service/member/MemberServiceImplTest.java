@@ -28,13 +28,13 @@ class MemberServiceImplTest {
     }
 
     @Test
-    void getTeamsById() {
-        LOGGER.info("teams: {}", memberService.getMembers(Set.of(595593L, 603422L)));
+    void getMembersById() {
+        LOGGER.info("members: {}", memberService.getMembers(Set.of(595593L, 603422L)));
     }
 
     @Test
-    void getTeamsByIdIncludeLicenses() {
-        LOGGER.info("teams: {}", memberService.getMembers(Set.of(595593L, 603422L), true));
+    void getMembersByIdIncludeLicenses() {
+        LOGGER.info("members w/licenses: {}", memberService.getMembers(Set.of(595593L, 603422L), true));
     }
 
 }

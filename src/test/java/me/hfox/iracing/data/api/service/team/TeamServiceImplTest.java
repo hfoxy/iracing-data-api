@@ -32,7 +32,7 @@ class TeamServiceImplTest {
 
     @Test
     void getTeamsByIdIncludeLicenses() {
-        LOGGER.info("teams: {}", teamService.getTeam(230337, true));
+        LOGGER.info("teams w/licenses: {}", teamService.getTeam(230337, true));
     }
 
 }
