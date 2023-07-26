@@ -17,6 +17,9 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
           cache: 'maven'
+      - uses: s4u/maven-settings-action@v2.8.0
+        with:
+          servers: '[{"id": "packagecloud", "password": "${{ secrets.PACKAGECLOUD_TOKEN }}"}]'
       - name: Build Project
         run: mvn clean install --batch-mode --update-snapshots
         env:

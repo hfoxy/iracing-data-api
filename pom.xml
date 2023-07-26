@@ -47,19 +47,14 @@
     </properties>
 
     <distributionManagement>
-        <!--<snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>-->
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/hfoxy/iracing-data-api</url>
+            <id>packagecloud</id>
+            <url>packagecloud+https://packagecloud.io/hfoxy/iracing-data-api</url>
         </repository>
+        <snapshotRepository>
+            <id>packagecloud</id>
+            <url>packagecloud+https://packagecloud.io/hfoxy/iracing-data-api</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <dependencies>
@@ -80,6 +75,13 @@
     </dependencies>
 
     <build>
+        <extensions>
+            <extension>
+                <groupId>io.packagecloud.maven.wagon</groupId>
+                <artifactId>maven-packagecloud-wagon</artifactId>
+                <version>0.0.6</version>
+            </extension>
+        </extensions>
         <plugins>
             <!--<plugin>
                 <groupId>org.sonatype.plugins</groupId>
