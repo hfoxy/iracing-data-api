@@ -1,0 +1,30 @@
+name: Build, Deploy
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 19
+        uses: actions/setup-java@v3
+        with:
+          java-version: '19'
+          distribution: 'temurin'
+          cache: 'maven'
+      - name: Build Project
+        run: mvn clean install --batch-mode --update-snapshots
+        env:
+          IRACING_EMAIL: ${{ secrets.IRACING_EMAIL }}
+          IRACING_PASSWORD: ${{ secrets.IRACING_PASSWORD }}
+      - name: Publish to GitHub Packages
+        run: mvn --batch-mode deploy
+        env:
+          IRACING_EMAIL: ${{ secrets.IRACING_EMAIL }}
+          IRACING_PASSWORD: ${{ secrets.IRACING_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
