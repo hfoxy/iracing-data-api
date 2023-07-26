@@ -1,12 +1,12 @@
-package me.hfox.iracing.data.api.data.team;
+package me.hfox.iracing.data.api.data.member;
 
 import me.hfox.iracing.data.api.data.base.BaseLicenseResponse;
 
-public class TeamDriverLicenseResponse extends BaseLicenseResponse {
+public class MemberLicenseResponse extends BaseLicenseResponse {
 
     @Override
     public String toString() {
-        return "TeamDriverLicenseResponse{" +
+        return "MemberLicenseResponse{" +
                 "categoryId=" + categoryId +
                 ", category='" + category + '\'' +
                 ", licenseLevel=" + licenseLevel +

@@ -72,4 +72,16 @@ public class CarClassResponse {
         this.shortName = shortName;
     }
 
+    @Override
+    public String toString() {
+        return "CarClassResponse{" +
+                "carClassId=" + carClassId +
+                ", carsInClass=" + carsInClass +
+                ", custId=" + custId +
+                ", name='" + name + '\'' +
+                ", relativeSpeed=" + relativeSpeed +
+                ", shortName='" + shortName + '\'' +
+                '}';
+    }
+
 }

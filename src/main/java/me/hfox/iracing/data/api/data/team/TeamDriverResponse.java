@@ -64,4 +64,16 @@ public class TeamDriverResponse {
         this.licences = licences;
     }
 
+    @Override
+    public String toString() {
+        return "TeamDriverResponse{" +
+                "custId=" + custId +
+                ", displayName='" + displayName + '\'' +
+                ", helmet=" + helmet +
+                ", owner=" + owner +
+                ", admin=" + admin +
+                ", licences=" + licences +
+                '}';
+    }
+
 }

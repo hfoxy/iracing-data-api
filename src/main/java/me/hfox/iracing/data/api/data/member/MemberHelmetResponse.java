@@ -1,12 +1,12 @@
-package me.hfox.iracing.data.api.data.team;
+package me.hfox.iracing.data.api.data.member;
 
 import me.hfox.iracing.data.api.data.base.BaseHelmetResponse;
 
-public class TeamHelmetResponse extends BaseHelmetResponse {
+public class MemberHelmetResponse extends BaseHelmetResponse {
 
     @Override
     public String toString() {
-        return "TeamHelmetResponse{" +
+        return "MemberHelmetResponse{" +
                 "pattern=" + pattern +
                 ", color1='" + color1 + '\'' +
                 ", color2='" + color2 + '\'' +

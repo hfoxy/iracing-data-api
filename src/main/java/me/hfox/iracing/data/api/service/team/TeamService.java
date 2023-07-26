@@ -4,8 +4,10 @@ import me.hfox.iracing.data.api.data.team.TeamResponse;
 
 public interface TeamService {
 
-    TeamResponse getTeams(long teamId, boolean licenses);
+    TeamResponse getTeam(long teamId, boolean licenses);
 
-    TeamResponse getTeams(long teamId);
+    default TeamResponse getTeam(long teamId) {
+        return getTeam(teamId, false);
+    }
 
 }

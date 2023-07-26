@@ -1,4 +1,4 @@
-package me.hfox.iracing.data.api.service.team;
+package me.hfox.iracing.data.api.service.member;
 
 import me.hfox.iracing.data.api.IRacingDataApiConfiguration;
 import me.hfox.iracing.data.api.service.TestAuthService;
@@ -9,16 +9,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = IRacingDataApiConfiguration.class)
-class TeamServiceImplTest {
+import java.util.Set;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TeamServiceImplTest.class);
+@SpringBootTest(classes = IRacingDataApiConfiguration.class)
+class MemberServiceImplTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MemberServiceImplTest.class);
 
     @Autowired
     TestAuthService authService;
 
     @Autowired
-    TeamService teamService;
+    MemberService memberService;
 
     @BeforeEach
     void setUp() {
@@ -27,12 +29,12 @@ class TeamServiceImplTest {
 
     @Test
     void getTeamsById() {
-        LOGGER.info("teams: {}", teamService.getTeam(230337));
+        LOGGER.info("teams: {}", memberService.getMembers(Set.of(595593L, 603422L)));
     }
 
     @Test
     void getTeamsByIdIncludeLicenses() {
-        LOGGER.info("teams: {}", teamService.getTeam(230337, true));
+        LOGGER.info("teams: {}", memberService.getMembers(Set.of(595593L, 603422L), true));
     }
 
 }

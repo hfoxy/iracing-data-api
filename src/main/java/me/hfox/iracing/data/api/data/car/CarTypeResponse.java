@@ -15,4 +15,11 @@ public class CarTypeResponse {
         this.carType = carType;
     }
 
+    @Override
+    public String toString() {
+        return "CarTypeResponse{" +
+                "carType='" + carType + '\'' +
+                '}';
+    }
+
 }

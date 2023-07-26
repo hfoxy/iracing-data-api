@@ -1,20 +1,24 @@
 package me.hfox.iracing.data.api.data.team;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import me.hfox.iracing.data.api.util.Constants;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 
 public class TeamResponse {
 
-    @JsonProperty("team_id")
+    @JsonProperty(value = "team_id", required = true)
     private long teamId;
 
     @JsonProperty("owner_id")
     private long ownerId;
 
-    @JsonProperty("team_name")
+    @JsonProperty(value = "team_name", required = true)
     private String teamName;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern= Constants.ISO_8601_PATTERN, timezone = "UTC")
     private ZonedDateTime created;
     private boolean hidden;
     private String about;
@@ -134,10 +138,12 @@ public class TeamResponse {
         this._default = _default;
     }
 
+    @JsonProperty("is_owner")
     public boolean isOwner() {
         return _owner;
     }
 
+    @JsonProperty("is_owner")
     public void setOwner(boolean _owner) {
         this._owner = _owner;
     }
@@ -158,10 +164,12 @@ public class TeamResponse {
         this.suit = suit;
     }
 
+    @JsonProperty("owner")
     public TeamDriverResponse getOwner() {
         return owner;
     }
 
+    @JsonProperty("owner")
     public void setOwner(TeamDriverResponse owner) {
         this.owner = owner;
     }
@@ -212,6 +220,33 @@ public class TeamResponse {
 
     public void setRoster(List<TeamDriverResponse> roster) {
         this.roster = roster;
+    }
+
+    @Override
+    public String toString() {
+        return "TeamResponse{" +
+                "teamId=" + teamId +
+                ", ownerId=" + ownerId +
+                ", teamName='" + teamName + '\'' +
+                ", created=" + created +
+                ", hidden=" + hidden +
+                ", about='" + about + '\'' +
+                ", url='" + url + '\'' +
+                ", rosterCount=" + rosterCount +
+                ", recruiting=" + recruiting +
+                ", privateWall=" + privateWall +
+                ", _default=" + _default +
+                ", _owner=" + _owner +
+                ", admin=" + admin +
+                ", suit=" + suit +
+                ", owner=" + owner +
+                ", tags=" + tags +
+                ", member=" + member +
+                ", applicant=" + applicant +
+                ", invite=" + invite +
+                ", ignored=" + ignored +
+                ", roster=" + roster +
+                '}';
     }
 
 }

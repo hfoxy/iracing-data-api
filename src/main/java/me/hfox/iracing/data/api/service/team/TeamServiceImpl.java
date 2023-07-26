@@ -25,36 +25,19 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public TeamResponse getTeams(long teamId, boolean licenses) {
-        WebClient client = authService.getAuthenticatedClient();
-        Map<String, Object> uriVariables = new HashMap<>();
-        uriVariables.put("team_id", teamId);
-        uriVariables.put("include_licenses", licenses);
-        ResponseEntity<RedirectLinkResponse> redirectResponse = client.get().uri("/data/car/get", uriVariables).retrieve()
-                .toEntity(RedirectLinkResponse.class).block();
-
-        RedirectLinkResponse redirect = Objects.requireNonNull(Objects.requireNonNull(redirectResponse).getBody());
-
-        URI uri;
-        try {
-            uri = new URI(redirect.getLink());
-        } catch (URISyntaxException ex) {
-            throw new IRacingDataException("invalid link uri", ex);
-        }
-
-        ResponseEntity<List<TeamResponse>> response = authService.getClient().get().uri(uri).retrieve()
-                .toEntityList(TeamResponse.class).block();
+    public TeamResponse getTeam(long teamId, boolean licenses) {
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put("team_id", teamId);
+        queryParams.put("include_licenses", licenses);
+        ResponseEntity<List<TeamResponse>> response = authService.getRedirectResponse(
+                "/data/team/get", queryParams
+        ).toEntityList(TeamResponse.class).block();
 
         TeamResponse team = Objects.requireNonNull(Objects.requireNonNull(response).getBody()).stream().findFirst()
                 .orElseThrow(() -> new IRacingDataException("unknown team"));
 
         team.setTeamId(Math.abs(team.getTeamId()));
         return team;
-    }
-
-    @Override
-    public TeamResponse getTeams(long teamId) {
-        return getTeams(teamId, false);
     }
 
 }

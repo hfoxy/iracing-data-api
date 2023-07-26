@@ -37,4 +37,13 @@ public class CarInClassResponse {
         this.retired = retired;
     }
 
+    @Override
+    public String toString() {
+        return "CarInClassResponse{" +
+                "carDirpath='" + carDirpath + '\'' +
+                ", carId=" + carId +
+                ", retired=" + retired +
+                '}';
+    }
+
 }

@@ -3,30 +3,37 @@ package me.hfox.iracing.data.api.service.auth;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import me.hfox.iracing.data.api.data.RedirectLinkResponse;
 import me.hfox.iracing.data.api.data.auth.AuthRequest;
 import me.hfox.iracing.data.api.data.auth.AuthResponse;
+import me.hfox.iracing.data.api.data.base.ErrorResponse;
 import me.hfox.iracing.data.api.exception.IRacingAuthenticationException;
+import me.hfox.iracing.data.api.exception.IRacingDataException;
+import me.hfox.iracing.data.api.exception.IRacingRequestDataException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.UriBuilder;
 import reactor.core.publisher.Mono;
 
 import java.net.HttpCookie;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.Function;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -128,6 +135,44 @@ public class AuthServiceImpl implements AuthService {
     public void logout() {
         client = null;
         authExpiry = null;
+    }
+
+    @Override
+    public WebClient.ResponseSpec getRedirectResponse(String uri, Map<String, Object> queryParams) {
+        WebClient.RequestHeadersSpec<?> spec;
+        if (queryParams != null && !queryParams.isEmpty()) {
+            Function<UriBuilder, URI> function = uriBuilder -> {
+                uriBuilder = uriBuilder.path(uri);
+                for (Entry<String, Object> entry : queryParams.entrySet()) {
+                    uriBuilder = uriBuilder.queryParam(entry.getKey(), entry.getValue());
+                }
+
+                return uriBuilder.build();
+            };
+
+            spec = getAuthenticatedClient().get().uri(function);
+        } else {
+            spec = getAuthenticatedClient().get().uri(uri);
+        }
+
+        ResponseEntity<RedirectLinkResponse> redirectResponse = spec.retrieve().onStatus(
+                        HttpStatusCode::is4xxClientError,
+                        clientResponse -> clientResponse.toEntity(ErrorResponse.class)
+                                .map(response -> new IRacingRequestDataException(
+                                        Objects.requireNonNull(response.getBody())
+                                ))
+                ).toEntity(RedirectLinkResponse.class).block();
+
+        RedirectLinkResponse redirect = Objects.requireNonNull(Objects.requireNonNull(redirectResponse).getBody());
+
+        URI redirectUri;
+        try {
+            redirectUri = new URI(redirect.getLink());
+        } catch (URISyntaxException ex) {
+            throw new IRacingDataException("invalid link uri", ex);
+        }
+
+        return getClient().get().uri(redirectUri).retrieve();
     }
 
 }

@@ -365,4 +365,43 @@ public class CarResponse {
     public void setSku(long sku) {
         this.sku = sku;
     }
+
+    @Override
+    public String toString() {
+        return "CarResponse{" +
+                "aiEnabled=" + aiEnabled +
+                ", allowNumberColors=" + allowNumberColors +
+                ", allowSponsor1=" + allowSponsor1 +
+                ", allowSponsor2=" + allowSponsor2 +
+                ", allowWheelColor=" + allowWheelColor +
+                ", awardExempt=" + awardExempt +
+                ", carDirpath='" + carDirpath + '\'' +
+                ", carId=" + carId +
+                ", carName='" + carName + '\'' +
+                ", carNameAbbreviated='" + carNameAbbreviated + '\'' +
+                ", carTypes=" + carTypes +
+                ", carWeight=" + carWeight +
+                ", categories=" + categories +
+                ", created=" + created +
+                ", firstSale=" + firstSale +
+                ", forumUrl='" + forumUrl + '\'' +
+                ", freeWithSubscription=" + freeWithSubscription +
+                ", headlights=" + headlights +
+                ", multipleDryTyreTypes=" + multipleDryTyreTypes +
+                ", hp=" + hp +
+                ", psPurchasable=" + psPurchasable +
+                ", maxPowerAdjustPercentage=" + maxPowerAdjustPercentage +
+                ", maxWeightPenaltyKg=" + maxWeightPenaltyKg +
+                ", minPowerAdjustPercentage=" + minPowerAdjustPercentage +
+                ", packageId=" + packageId +
+                ", patterns=" + patterns +
+                ", price=" + price +
+                ", priceDisplay='" + priceDisplay + '\'' +
+                ", retired=" + retired +
+                ", searchFilters='" + searchFilters + '\'' +
+                ", siteUrl='" + siteUrl + '\'' +
+                ", sku=" + sku +
+                '}';
+    }
+
 }

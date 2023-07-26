@@ -31,4 +31,12 @@ public class RedirectLinkResponse {
         this.expires = expires;
     }
 
+    @Override
+    public String toString() {
+        return "RedirectLinkResponse{" +
+                "link='" + link + '\'' +
+                ", expires=" + expires +
+                '}';
+    }
+
 }

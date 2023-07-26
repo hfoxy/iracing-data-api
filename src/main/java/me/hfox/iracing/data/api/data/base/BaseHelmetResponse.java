@@ -1,13 +1,19 @@
-package me.hfox.iracing.data.api.data.team;
+package me.hfox.iracing.data.api.data.base;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class TeamSuitResponse {
+public class BaseHelmetResponse {
 
-    private long pattern;
-    private String color1;
-    private String color2;
-    private String color3;
+    protected long pattern;
+    protected String color1;
+    protected String color2;
+    protected String color3;
+
+    @JsonProperty("face_type")
+    protected long faceType;
+
+    @JsonProperty("helmet_type")
+    protected long helmetType;
 
     public long getPattern() {
         return pattern;
@@ -41,13 +47,31 @@ public class TeamSuitResponse {
         this.color3 = color3;
     }
 
+    public long getFaceType() {
+        return faceType;
+    }
+
+    public void setFaceType(long faceType) {
+        this.faceType = faceType;
+    }
+
+    public long getHelmetType() {
+        return helmetType;
+    }
+
+    public void setHelmetType(long helmetType) {
+        this.helmetType = helmetType;
+    }
+
     @Override
     public String toString() {
-        return "TeamSuitResponse{" +
+        return "BaseHelmetResponse{" +
                 "pattern=" + pattern +
                 ", color1='" + color1 + '\'' +
                 ", color2='" + color2 + '\'' +
                 ", color3='" + color3 + '\'' +
+                ", faceType=" + faceType +
+                ", helmetType=" + helmetType +
                 '}';
     }
 
