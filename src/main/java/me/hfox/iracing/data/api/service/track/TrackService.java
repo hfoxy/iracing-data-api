@@ -9,6 +9,6 @@ public interface TrackService {
 
     List<TrackResponse> getTracks();
 
-    List<TrackAssetsResponse> getTrackAssets();
+    TrackAssetsResponse getTrackAssets();
 
 }

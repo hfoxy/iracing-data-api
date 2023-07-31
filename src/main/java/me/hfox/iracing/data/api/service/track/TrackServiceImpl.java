@@ -27,10 +27,10 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    public List<TrackAssetsResponse> getTrackAssets() {
-        ResponseEntity<List<TrackAssetsResponse>> response = authService.getRedirectResponse(
+    public TrackAssetsResponse getTrackAssets() {
+        ResponseEntity<TrackAssetsResponse> response = authService.getRedirectResponse(
                 "/data/track/assets"
-        ).toEntityList(TrackAssetsResponse.class).block();
+        ).toEntity(TrackAssetsResponse.class).block();
         return Objects.requireNonNull(Objects.requireNonNull(response).getBody());
     }
 

@@ -26,12 +26,12 @@ class TrackServiceImplTest {
     }
 
     @Test
-    void getTeamsById() {
+    void getTracks() {
         LOGGER.info("tracks: {}", trackService.getTracks());
     }
 
     @Test
-    void getTeamsByIdIncludeLicenses() {
+    void getTrackAssets() {
         LOGGER.info("track assets: {}", trackService.getTrackAssets());
     }
 
