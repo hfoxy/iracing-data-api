@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.ClientCodecConfigurer;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.stereotype.Service;
@@ -57,8 +58,11 @@ public class AuthServiceImpl implements AuthService {
         mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         mapper.registerModule(new JavaTimeModule());
 
-        this.exchangeStrategies = ExchangeStrategies.builder().codecs(configurer -> configurer.defaultCodecs()
-                        .jackson2JsonDecoder(new Jackson2JsonDecoder(mapper))).build();
+        this.exchangeStrategies = ExchangeStrategies.builder().codecs(configurer -> {
+            ClientCodecConfigurer.ClientDefaultCodecs codecs = configurer.defaultCodecs();
+            codecs.jackson2JsonDecoder(new Jackson2JsonDecoder(mapper));
+            codecs.maxInMemorySize(1024*1024);
+        }).build();
 
         this.unauthenticatedClient = WebClient.builder().baseUrl(ROOT_URI)
                 .exchangeStrategies(exchangeStrategies).build();
